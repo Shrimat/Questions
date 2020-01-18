@@ -21,11 +21,14 @@ public class Person {
     return phoneNumber;
   }
 
-  @Override //overriding means we write over the default definition of this method
+  @Override // overriding means we write over the default definition of this method
   public String toString() {
-    return "Person: " +
-            "\nForename = " + foreName +
-            "\nSurname = " + surName +
-            "\nTelephone Number = " + phoneNumber;
+    return "Person: "
+        + "\nForename = "
+        + foreName
+        + "\nSurname = "
+        + surName
+        + "\nTelephone Number = "
+        + phoneNumber;
   }
 }
