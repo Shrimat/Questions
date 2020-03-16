@@ -34,25 +34,19 @@ public class StringStackList extends AbstractStringStack {
 
   @Override
   public StringStackIterator iterator() {
-    return new StringStackListIterator();
-  }
+    return new StringStackIterator() {
+      private int pointer = 0;
 
-  private class StringStackListIterator implements StringStackIterator {
-    private int pointer;
+      @Override
+      public boolean hasNext() {
+        return pointer < stringList.size();
+      }
 
-    public StringStackListIterator() {
-      this.pointer = 0;
-    }
-
-    @Override
-    public boolean hasNext() {
-      return pointer < stringList.size();
-    }
-
-    @Override
-    public String next() {
-      pointer++;
-      return stringList.get(pointer - 1);
-    }
+      @Override
+      public String next() {
+        pointer++;
+        return stringList.get(pointer - 1);
+      }
+    };
   }
 }

@@ -51,26 +51,20 @@ public class StringStackArray extends AbstractStringStack {
 
   @Override
   public StringStackIterator iterator() {
-    return new StringStackArrayIterator();
+    return new StringStackIterator() { // Uses an anonymous class, as it is just used once. Note
+                                       // that constructors cannot be declared
+      private int pointer = 0;
+
+      @Override
+      public boolean hasNext() {
+        return pointer < strings.length;
+      }
+
+      @Override
+      public String next() {
+        pointer++;
+        return strings[pointer - 1];
+      }
+    };
   }
-
-  private class StringStackArrayIterator implements StringStackIterator {
-
-    private int pointer;
-
-    private StringStackArrayIterator() {
-      this.pointer = 0;
-    }
-    @Override
-    public boolean hasNext() {
-      return pointer < strings.length;
-    }
-
-    @Override
-    public String next() {
-      pointer++;
-      return strings[pointer-1];
-    }
-  }
-
 }
