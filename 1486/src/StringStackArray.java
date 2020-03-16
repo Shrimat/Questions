@@ -1,4 +1,4 @@
-public class StringStackArray implements StringStack {
+public class StringStackArray extends AbstractStringStack {
   private int size;
   private String[] strings;
   private static final int CAPACITY = 100;
@@ -21,9 +21,7 @@ public class StringStackArray implements StringStack {
   }
 
   private void shiftRight() {
-    for (int i = size; i > 0; i--) {
-      strings[i] = strings[i-1];
-    }
+    if (size >= 0) System.arraycopy(strings, 0, strings, 1, size);
   }
 
   // If the stack is empty, leaves the stack unchanged and returns
@@ -42,15 +40,37 @@ public class StringStackArray implements StringStack {
   }
 
   private void shiftLeft() {
-    for (int i = 0; i < size-1; i++) {
-      strings[i] = strings[i+1];
-    }
+    if (size - 1 >= 0) System.arraycopy(strings, 1, strings, 0, size - 1);
   }
 
   // Returns true iff the stack is empty
   @Override
   public boolean isEmpty() {
     return size == 0;
+  }
+
+  @Override
+  public StringStackIterator iterator() {
+    return new StringStackArrayIterator();
+  }
+
+  private class StringStackArrayIterator implements StringStackIterator {
+
+    private int pointer;
+
+    private StringStackArrayIterator() {
+      this.pointer = 0;
+    }
+    @Override
+    public boolean hasNext() {
+      return pointer < strings.length;
+    }
+
+    @Override
+    public String next() {
+      pointer++;
+      return strings[pointer-1];
+    }
   }
 
 }

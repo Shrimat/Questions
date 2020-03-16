@@ -6,4 +6,6 @@ public interface StringStack {
 
   boolean isEmpty();
 
+  StringStackIterator iterator();
+
 }

@@ -1,21 +1,18 @@
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class StringStackList implements StringStack {
+public class StringStackList extends AbstractStringStack {
   private List<String> stringList;
 
   public StringStackList() {
     this.stringList = new LinkedList<>();
   }
 
-
-  //Pushes the given String on to the top of the stack
+  // Pushes the given String on to the top of the stack
   @Override
   public void push(String s) {
     stringList.add(0, s);
   }
-
 
   // If the stack is empty, leaves the stack unchanged and returns
   // null.  Otherwise, removes the string that is on the top of
@@ -33,5 +30,29 @@ public class StringStackList implements StringStack {
   @Override
   public boolean isEmpty() {
     return stringList.isEmpty();
+  }
+
+  @Override
+  public StringStackIterator iterator() {
+    return new StringStackListIterator();
+  }
+
+  private class StringStackListIterator implements StringStackIterator {
+    private int pointer;
+
+    public StringStackListIterator() {
+      this.pointer = 0;
+    }
+
+    @Override
+    public boolean hasNext() {
+      return pointer < stringList.size();
+    }
+
+    @Override
+    public String next() {
+      pointer++;
+      return stringList.get(pointer - 1);
+    }
   }
 }
